@@ -1,0 +1,68 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+.navbar-toggler::after {
+  content: "\2630"; /* Unicode character for hamburger menu icon */
+  color: rgb(85, 0, 0); /* Change the color */
+  font-size: 24px;
+  border-color: red;
+}
+.navbar-toggler {
+  /* border: 1px solid white; */
+}
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none; /* Remove the outline */
+  border-color: transparent; /* Remove any border color */
+}
+.hero {
+  background-image: url(../download.jpeg);
+  /* background-position: center; */
+  /* background-position: bottom; */
+  /* background-repeat: no-repeat; */
+
+  /* background-repeat: no-repeat; */
+  /* min-height: 80vh; */
+  min-height: 550px;
+  /* background-position: ; */
+}
+.btn:hover {
+  scale: 0.9;
+}
+.btn:hover i {
+  /* scale: 1.1; */
+  transform: translateX(50%);
+}
+header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.order {
+  .img {
+    height: 600px;
+    max-width: 600px;
+    img {
+      /* max-height: 100px; */
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .order {
+    .img {
+      height: 400px;
+    }
+  }
+}
+@media screen and (max-width: 458px) {
+  .order {
+    .img {
+      height: 300px;
+    }
+  }
+}
