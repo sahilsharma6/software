@@ -46,7 +46,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item py-1 px-2">
-                <a class="nav-link" aria-current="page" href="#">Home</a>
+                <a class="nav-link" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item py-1 px-2">
                 <a class="nav-link" href="#">About</a>
@@ -278,7 +278,7 @@
             </div>
 
             <ul class="list-unstyled mt-4">
-             
+
              ${pt.description
                .map((d, i) => {
                  console.log(d);
@@ -323,15 +323,15 @@
       $(document).ready(function () {
         $(".bp").hide();
         $(".m1").click(function () {
-          $(".bp").toggle().text(pt.price);
+          $(".bp").show().text(pt.price);
         });
         $(".m2").click(function () {
           $(".bp")
-            .toggle()
+            .show()
             .text(pt.price * 5);
         });
         $(".m3").click(function () {
-          $(".bp").toggle().text(pt.price);
+          $(".bp").show().text(pt.price);
         });
         //
         // inc and dec
@@ -350,6 +350,52 @@
         });
         //
       });
+
+      //
+
+      //
+
+      // Add to Cart
+      // console.log($(".bp").val);
+      const bp = document.getElementsByClassName("bp");
+      console.log(bp);
+
+      function addToCart() {
+        // Assuming pt contains the product data
+        const product = {
+          id: pt.id,
+          name: pt.name,
+          img: pt.img,
+          price: $(".bp")[0].innerText,
+          quantity: parseInt($(".tot").text()), // Assuming quantity is taken from the displayed total
+        };
+
+        // Simulating adding the product to the cart (you can replace this with actual logic)
+        // For demonstration, storing the product in localStorage
+        let cart = localStorage.getItem("cart");
+        cart = cart ? JSON.parse(cart) : [];
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      $(document).ready(function () {
+        $(".acart").on("click", function (event) {
+          event.preventDefault();
+
+          // Call function to add product to cart
+          if ($(".bp").text().trim() !== "") {
+            addToCart();
+
+            window.location.href = "cart.html"; // Replace "cart.html" with the actual URL of your cart page
+          } else {
+            alert("Please choose a validity before adding to cart.");
+          }
+
+          // window.location.href = "cart.html"; // Replace "cart.html" with the actual URL of your cart page
+        });
+      });
+
+      //
     </script>
 
     <script></script>
