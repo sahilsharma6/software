@@ -76,37 +76,38 @@
       <div class="container mt-5">
         <h1>Shopping Cart</h1>
         <div class="row mt-3">
-          <div class="col-md-8">
-            <div class="card mb-3">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img
-                    src="assets/1-removebg-preview (1).png"
-                    alt="Product Image"
-                    class="img-fluid"
-                  />
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">Product Name</h5>
-                    <p class="card-text">Price: $99.99</p>
-                    <p class="card-text">Quantity: 1</p>
-                    <p class="card-text">Subtotal: $99.99</p>
+          <div class="col-md-8 prd">
+            <!-- <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      src="assets/1-removebg-preview (1).png"
+                      alt="Product Image"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Product Name</h5>
+                      <p class="card-text">Price: $99.99</p>
+                      <p class="card-text">Quantity: 1</p>
+                      <p class="card-text">Subtotal: $99.99</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> -->
             <!-- More product cards can go here -->
           </div>
           <div class="col-md-4">
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title">Cart Total</h5>
-                <p class="card-text">Subtotal: $99.99</p>
+                <p class="card-text pretot"></p>
                 <div class="input-group mb-3">
                   <input
                     type="text"
                     class="form-control"
+                    id="coupon-code"
                     placeholder="Enter coupon code"
                     aria-label="Coupon code"
                     aria-describedby="coupon-btn"
@@ -114,14 +115,16 @@
                   <button
                     class="btn btn-outline-secondary"
                     type="button"
-                    id="coupon-btn"
+                    id="apply-coupon-btn"
                   >
                     Apply
                   </button>
                 </div>
                 <hr />
-                <h5 class="card-text">Total: $99.99</h5>
-                <a href="" class="btn btn-primary mt-3">Proceed to Checkout</a>
+                <h5 class="card-text" id="total"></h5>
+                <a href="pay.html" class="btn btn-primary mt-3 nextpay"
+                  >Proceed to Checkout</a
+                >
               </div>
             </div>
           </div>
@@ -140,18 +143,92 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-    <script>
+
+    <script type="module"></script>
+    <script type="module">
       const data = JSON.parse(localStorage.getItem("cart"));
+      import actp from "./actp.js";
+      console.log(actp);
+      var ttt = 0;
+
       data.forEach((item) => {
         const d = `
-          <img src="${item.img}" alt="product" class="cart-image">
-          <h3>${item.name}</h3>
-          <p>${item.price}</p>
-          <p>${item.quantity}</p>
-          <p>${item.price * item.quantity}</p>
-          <button class="remove">Remove</button>
+        <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img
+                    src='${item.img}'
+                    alt="Product Image"
+                    class="img-fluid"
+                  />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">${item.name}</h5>
+                    <p class="card-text">Price: ${item.price}</p>
+                    <p class="card-text">Quantity:${item.quantity}</p>
+                    <p class="card-text">Subtotal:${
+                      item.price * item.quantity
+                    }</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           `;
-        document.querySelector(".add").innerHTML += d;
+        document.querySelector(".prd").innerHTML += d;
+        // let ttt +=  item.price * item.quantity
+        ttt = ttt + item.price * item.quantity;
+
+        // console.log(item.price * item.quantity);
+      });
+
+      document.querySelector(".pretot").textContent += `Subtotal:${ttt}`;
+      document.querySelector("#total").textContent += `Total:${ttt}`;
+      console.log(ttt);
+
+      // console.log(actp);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var newTotal = ttt;
+        document
+          .getElementById("apply-coupon-btn")
+          .addEventListener("click", function () {
+            // Get the value of the coupon code input field
+            var couponCode = document.getElementById("coupon-code").value;
+
+            // Assume you have a function to calculate the discount based on the coupon code
+            var discount = calculateDiscount(couponCode);
+
+            // Assume initial total is $99.99 (replace it with your initial total)
+            var initialTotal = ttt;
+
+            // Calculate the new total after applying the discount
+            newTotal = initialTotal - discount;
+
+            // Update the displayed total on the page
+            document.getElementById("total").textContent =
+              "Total: " + newTotal.toFixed(2);
+          });
+
+        document
+          .querySelector(".nextpay")
+          .addEventListener("click", function () {
+            console.log(actp.p);
+            localStorage.setItem("total", JSON.stringify(newTotal));
+          });
+
+        // Function to calculate discount based on the coupon code
+        function calculateDiscount(couponCode) {
+          // Replace this with your logic to calculate the discount based on the coupon code
+          // For demonstration purposes, let's assume a fixed discount amount
+          if (couponCode === "SAVE10") {
+            return 10; // $10 discount
+          } else if (couponCode === "SAVE20") {
+            return (20 / 100) * ttt; // $20 discount
+          } else {
+            return 0; // No discount applied
+          }
+        }
       });
     </script>
   </body>

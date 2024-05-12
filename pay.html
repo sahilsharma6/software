@@ -27,7 +27,10 @@
     <!-- <div id="qrcode-2"></div> -->
     <script type="text/javascript">
       //   const am = 1;
-      const am = 1;
+      const data = JSON.parse(localStorage.getItem("cart"));
+      //   var ttt = 0;
+      const total = localStorage.getItem("total");
+      const am = total;
       const upiID = encodeURIComponent("kamal-160@paytm");
       const qrText = encodeURIComponent(`upi://pay?pa=${upiID}&am=${am}`); //`upi://pay?pa=${upiID}&am=${am}`;
       var qrcode = new QRCode(document.getElementById("qrcode"), {
