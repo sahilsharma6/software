@@ -144,11 +144,8 @@
       crossorigin="anonymous"
     ></script>
 
-    <script type="module"></script>
-    <script type="module">
+    <script>
       const data = JSON.parse(localStorage.getItem("cart"));
-      import actp from "./actp.js";
-      console.log(actp);
       var ttt = 0;
 
       data.forEach((item) => {
