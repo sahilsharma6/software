@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customized QR Code</title>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+      .qrcode {
+        /* pointer-events: none; */
+        background: #000;
+        height: 1000px;
+      }
+      img[alt] {
+        pointer-events: none;
+      }
+    </style>
   </head>
+
   <body>
-    <h2>Customized QR Code:</h2>
+    <h2>QR Code:</h2>
     <div id="qrcode"></div>
     <script type="text/javascript">
       //   new QRCode(document.getElementById("qrcode"), "https://webisora.com");
@@ -24,6 +35,8 @@
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H,
       });
+      //   document.querySelector("#qrcode img").setAttribute("alt", "");
+      document.querySelector("#qrcode").removeAttribute("title");
     </script>
   </body>
 </html>
