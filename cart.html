@@ -57,12 +57,19 @@
                 <a class="nav-link position-relative" href="#">
                   <!-- <div class="border border-2 border-primary px-2 py-1"> -->
                   <span
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary"
+                    class="position-absolute top-0 cbtn start-100 translate-middle badge rounded-circle bg-primary"
                   >
                     0
                     <!-- <span class="visually-hidden">unread messages</span> -->
                   </span>
                   <i class="fa-solid fa-cart-plus text-primary"></i>
+                  <script>
+                    const cbtn = document.querySelector(".cbtn");
+                    let v = localStorage.getItem("cart");
+                    v = JSON.parse(v);
+                    console.log(v);
+                    cbtn.textContent = v.length;
+                  </script>
                   <!-- </div> -->
                 </a>
               </li>
@@ -145,87 +152,108 @@
     ></script>
 
     <script>
-      const data = JSON.parse(localStorage.getItem("cart"));
-      var ttt = 0;
+      document.addEventListener("DOMContentLoaded", function () {
+        const data = JSON.parse(localStorage.getItem("cart"));
+        var ttt = 0;
 
-      data.forEach((item) => {
-        const d = `
-        <div class="card mb-3">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img
-                    src='${item.img}'
-                    alt="Product Image"
-                    class="img-fluid"
-                  />
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">${item.name}</h5>
-                    <p class="card-text">Price: ${item.price}</p>
-                    <p class="card-text">Quantity:${item.quantity}</p>
-                    <p class="card-text">Subtotal:${
-                      item.price * item.quantity
-                    }</p>
-                  </div>
+        // Function to render the product cards
+        function renderProducts() {
+          // Clear previous products
+          document.querySelector(".prd").innerHTML = "";
+
+          // Render each product card
+          data.forEach((item, index) => {
+            const d = `
+          <div class="card mb-3">
+            <div class="delete-btn" data-index="${index}">X</div>
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src='${item.img}' alt="Product Image" class="img-fluid" />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">${item.name}</h5>
+                  <p class="card-text">Price: ${item.price}</p>
+                  <p class="card-text">Quantity:${item.quantity}</p>
+                  <p class="card-text">Subtotal:${
+                    item.price * item.quantity
+                  }</p>
                 </div>
               </div>
             </div>
-          `;
-        document.querySelector(".prd").innerHTML += d;
-        // let ttt +=  item.price * item.quantity
-        ttt = ttt + item.price * item.quantity;
-
-        // console.log(item.price * item.quantity);
-      });
-
-      document.querySelector(".pretot").textContent += `Subtotal:${ttt}`;
-      document.querySelector("#total").textContent += `Total:${ttt}`;
-      console.log(ttt);
-
-      // console.log(actp);
-
-      document.addEventListener("DOMContentLoaded", function () {
-        var newTotal = ttt;
-        document
-          .getElementById("apply-coupon-btn")
-          .addEventListener("click", function () {
-            // Get the value of the coupon code input field
-            var couponCode = document.getElementById("coupon-code").value;
-
-            // Assume you have a function to calculate the discount based on the coupon code
-            var discount = calculateDiscount(couponCode);
-
-            // Assume initial total is $99.99 (replace it with your initial total)
-            var initialTotal = ttt;
-
-            // Calculate the new total after applying the discount
-            newTotal = initialTotal - discount;
-
-            // Update the displayed total on the page
-            document.getElementById("total").textContent =
-              "Total: " + newTotal.toFixed(2);
+          </div>
+        `;
+            document.querySelector(".prd").innerHTML += d;
+            ttt = ttt + item.price * item.quantity;
           });
 
-        document
-          .querySelector(".nextpay")
-          .addEventListener("click", function () {
-            localStorage.setItem("total", JSON.stringify(newTotal));
-          });
+          // Update the total
+          document.querySelector(".pretot").textContent = `Subtotal: ${ttt}`;
+          document.querySelector("#total").textContent = `Total: ${ttt}`;
+          var newTotal = ttt;
+          // console.log(ttt);
+          document
+            .getElementById("apply-coupon-btn")
+            .addEventListener("click", function () {
+              // Get the value of the coupon code input field
+              var couponCode = document.getElementById("coupon-code").value;
 
-        // Function to calculate discount based on the coupon code
-        function calculateDiscount(couponCode) {
-          // Replace this with your logic to calculate the discount based on the coupon code
-          // For demonstration purposes, let's assume a fixed discount amount
-          if (couponCode === "SAVE10") {
-            return 10; // $10 discount
-          } else if (couponCode === "SAVE20") {
-            return (20 / 100) * ttt; // $20 discount
-          } else {
-            return 0; // No discount applied
+              // Assume you have a function to calculate the discount based on the coupon code
+              var discount = calculateDiscount(couponCode);
+
+              // Assume initial total is $99.99 (replace it with your initial total)
+              var initialTotal = ttt;
+
+              // Calculate the new total after applying the discount
+              newTotal = initialTotal - discount;
+
+              // Update the displayed total on the page
+              document.getElementById("total").textContent =
+                "Total: " + newTotal.toFixed(2);
+              console.log(newTotal);
+            });
+
+          console.log(newTotal);
+          document
+            .querySelector(".nextpay")
+            .addEventListener("click", function () {
+              // localStorage.setItem("cart", JSON.stringify(data));
+              localStorage.setItem("total", JSON.stringify(newTotal));
+            });
+
+          // Function to calculate discount based on the coupon code
+          function calculateDiscount(couponCode) {
+            // Replace this with your logic to calculate the discount based on the coupon code
+            // For demonstration purposes, let's assume a fixed discount amount
+            if (couponCode === "SAVE10") {
+              return 10; // $10 discount
+            } else if (couponCode === "SAVE20") {
+              return (20 / 100) * ttt; // $20 discount
+            } else {
+              return 0; // No discount applied
+            }
           }
         }
+
+        // Render initial products
+        renderProducts();
+
+        // Add event listener to delete buttons
+        document.querySelectorAll(".delete-btn").forEach(function (button) {
+          button.addEventListener("click", function () {
+            const index = button.dataset.index;
+            // Remove the product from the data array
+            data.splice(index, 1);
+            // Update local storage
+            localStorage.setItem("cart", JSON.stringify(data));
+            // Re-render products
+            renderProducts();
+            window.location.reload();
+          });
+        });
       });
+
+      // console.log(actp);
     </script>
   </body>
 </html>

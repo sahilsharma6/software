@@ -52,6 +52,19 @@ header {
   }
 }
 
+.card {
+  position: relative;
+  .delete-btn {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    font-size: 20px;
+    border: 1px solid;
+    padding: 2px 12px;
+  }
+}
 @media screen and (max-width: 768px) {
   .order {
     .img {
