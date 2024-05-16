@@ -79,3 +79,12 @@ header {
     }
   }
 }
+
+footer {
+  background: #030506;
+  i:hover {
+    scale: 1.1;
+    cursor: pointer;
+    color: #0d6efd;
+  }
+}

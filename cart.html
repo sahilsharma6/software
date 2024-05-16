@@ -52,7 +52,8 @@
               </li>
 
               <li
-                class="nav-item border px-lg-2 py-1 px-2 border-2 border-primary d-none d-lg-block"
+                class="nav-item border px-lg-2 py-1 px-2 border-2 border-primary"
+                style="width: 50px; text-align: center"
               >
                 <a class="nav-link position-relative" href="#">
                   <!-- <div class="border border-2 border-primary px-2 py-1"> -->
@@ -214,6 +215,10 @@
             });
 
           console.log(newTotal);
+          if (newTotal == 0) {
+            document.querySelector(".nextpay").style.display = "none";
+            localStorage.setItem("total", JSON.stringify(newTotal));
+          }
           document
             .querySelector(".nextpay")
             .addEventListener("click", function () {
@@ -252,8 +257,6 @@
           });
         });
       });
-
-      // console.log(actp);
     </script>
   </body>
 </html>

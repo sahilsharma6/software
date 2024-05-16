@@ -5,46 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customized QR Code</title>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
-      .qrcode {
-        /* pointer-events: none; */
-        background: #000;
-        height: 1000px;
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
       }
-      img[alt] {
-        pointer-events: none;
+
+      #qrcode {
+        /* border: 2px solid #5868bf; */
+        padding: 20px;
+        /* background-color: #f0f0f0; */
+      }
+
+      #instructions {
+        text-align: center;
+        margin-top: 20px;
+        margin-left: 10px;
+        font-size: 18px;
+      }
+      body {
+        /* background: #eee8e8; */
+      }
+      .contain {
+        display: flex;
+        align-items: center;
+        /* max-width: 1500px; */
+        justify-content: center;
+        flex-direction: column;
+        /* font-family: 'Courier New', Courier, monospace; */
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: rgb(213, 80, 80);
+        border: 2px solid #5561ce;
+        height: 450px;
+        max-width: 280px;
+        /* background: #ece9e9; */
+        padding: 10px;
+        a {
+          text-decoration: none;
+        }
       }
     </style>
   </head>
 
   <body>
-    <h2>QR Code:</h2>
-    <div id="qrcode"></div>
+    <div class="contain">
+      <div id="qrcode"></div>
+      <div id="instructions">
+        <p>
+          Send screenshot after paying here at
+          <a href="" class="fs">
+            <i class="fab fa-whatsapp"></i>
+            9729664360
+          </a>
+        </p>
+        <p>or call at this number: <a href="">9729664360</a></p>
+      </div>
+    </div>
     <script type="text/javascript">
-      //   new QRCode(document.getElementById("qrcode"), "https://webisora.com");
-    </script>
-
-    <!-- <div id="qrcode-2"></div> -->
-    <script type="text/javascript">
-      //   const am = 1;
-      const data = JSON.parse(localStorage.getItem("cart"));
-      //   var ttt = 0;
       const total = localStorage.getItem("total");
-      const am = total;
       const upiID = encodeURIComponent("kamal-160@paytm");
-      const qrText = encodeURIComponent(`upi://pay?pa=${upiID}&am=${am}`); //`upi://pay?pa=${upiID}&am=${am}`;
+      const am = total;
+      const qrText = encodeURIComponent(`upi://pay?pa=${upiID}&am=${am}`);
       var qrcode = new QRCode(document.getElementById("qrcode"), {
-        // text: `upi://pay?pa=sahilsharma9779512589@okhdfcbank&am=${am}`,
-        // text: `upi://pay?pa=${upiID}%26am=${am}`,
         text: `upi://pay?pa=${upiID}&am=${am}`,
-        width: 128,
-        height: 128,
+        width: 200,
+        height: 200,
         colorDark: "#5868bf",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H,
       });
-      //   document.querySelector("#qrcode img").setAttribute("alt", "");
-      document.querySelector("#qrcode").removeAttribute("title");
+
+      if (total == 0) {
+        window.location.href = "/";
+      }
     </script>
   </body>
 </html>
