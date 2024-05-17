@@ -87,6 +87,7 @@
         correctLevel: QRCode.CorrectLevel.H,
       });
 
+      document.querySelector("#qrcode").setAttribute("title", "");
       if (total == 0) {
         window.location.href = "/";
       }
