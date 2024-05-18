@@ -222,14 +222,14 @@
             <h6 class="text-secondary my-4"><b> Choose validity </b></h6>
             <div class="py-3">
               <button
-                class="border bg-white border-1 px-4 py-2 d-inline-block mb-2 m1"
+                class="border  border-1 px-4 py-2 d-inline-block mb-2 m1 mn"
               >
                 1 month
               </button>
-              <button class="border border-1 px-4 py-2 d-inline-block mb-2 m2">
+              <button class="border border-1 px-4 py-2 d-inline-block mb-2 m2 mn">
                 6 month
               </button>
-              <button class="border border-1 px-4 py-2 d-inline-block mb-2 m3">
+              <button class="border border-1 px-4 py-2 d-inline-block mb-2 m3 mn">
                 12 month
               </button>
             </div>
@@ -285,6 +285,8 @@
       </div>
       `;
 
+      // const mn = document.querySelectorAll(".mn");
+      // console.log(mn[0]);
       // document.getElementsByClassName("order").innerHTML = cardData;
       const order = document.querySelector(".order");
       order.insertAdjacentHTML("beforeend", cardData);
@@ -295,12 +297,24 @@
       $(document).ready(function () {
         $(".bp").hide();
         $(".m1").click(function () {
+          $(".m1").toggleClass("a");
+          $(".m2").removeClass("a");
+          $(".m3").removeClass("a");
+
           $(".bp").show().text(pt.price.month);
         });
         $(".m2").click(function () {
+          $(".m2").toggleClass("a");
+          $(".m1").removeClass("a");
+          $(".m3").removeClass("a");
+
           $(".bp").show().text(pt.price.half);
         });
         $(".m3").click(function () {
+          $(".m3").toggleClass("a");
+          $(".m1").removeClass("a");
+          $(".m2").removeClass("a");
+
           $(".bp").show().text(pt.price.year);
         });
         //
