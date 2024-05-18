@@ -48,7 +48,7 @@
                 <a class="nav-link" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item py-1 px-2">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="/about">About us</a>
               </li>
 
               <li
@@ -231,10 +231,8 @@
           function calculateDiscount(couponCode) {
             // Replace this with your logic to calculate the discount based on the coupon code
             // For demonstration purposes, let's assume a fixed discount amount
-            if (couponCode === "SAVE10") {
-              return 10; // $10 discount
-            } else if (couponCode === "SAVE20") {
-              return (20 / 100) * ttt; // $20 discount
+            if (couponCode === "KAMALJI10") {
+              return (10 / 100) * ttt;
             } else {
               return 0; // No discount applied
             }
