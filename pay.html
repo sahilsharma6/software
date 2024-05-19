@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customized QR Code</title>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -22,9 +22,7 @@
       }
 
       #qrcode {
-        /* border: 2px solid #5868bf; */
         padding: 20px;
-        /* background-color: #f0f0f0; */
       }
 
       #instructions {
@@ -33,26 +31,22 @@
         margin-left: 10px;
         font-size: 18px;
       }
-      body {
-        /* background: #eee8e8; */
-      }
+
       .contain {
         display: flex;
         align-items: center;
-        /* max-width: 1500px; */
         justify-content: center;
         flex-direction: column;
-        /* font-family: 'Courier New', Courier, monospace; */
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         color: rgb(213, 80, 80);
         border: 2px solid #5561ce;
         height: 450px;
         max-width: 280px;
-        /* background: #ece9e9; */
         padding: 10px;
-        a {
-          text-decoration: none;
-        }
+      }
+
+      .contain a {
+        text-decoration: none;
       }
     </style>
   </head>
@@ -75,21 +69,35 @@
     </div>
     <script type="text/javascript">
       const total = localStorage.getItem("total");
-      const upiID = encodeURIComponent("kamal-160@paytm");
-      const am = total;
-      const qrText = encodeURIComponent(`upi://pay?pa=${upiID}&am=${am}`);
-      var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: `upi://pay?pa=${upiID}&am=${am}`,
-        width: 200,
-        height: 200,
-        colorDark: "#5868bf",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H,
-      });
-
-      document.querySelector("#qrcode").setAttribute("title", "");
-      if (total == 0) {
+      if (!total || total == 0) {
         window.location.href = "/";
+      } else {
+        const upiID = "kamal-160@paytm";
+        const am = total;
+        const qrText = `upi://pay?pa=${upiID}&am=${am}`;
+
+        const qrCode = new QRCodeStyling({
+          width: 200,
+          height: 200,
+          data: qrText,
+          dotsOptions: {
+            color: "#5868bf",
+            type: "rounded",
+          },
+          backgroundOptions: {
+            color: "#ffffff",
+          },
+          cornersSquareOptions: {
+            type: "extra-rounded",
+            color: "#5868bf",
+          },
+          cornersDotOptions: {
+            type: "dot",
+            color: "#5868bf",
+          },
+        });
+
+        qrCode.append(document.getElementById("qrcode"));
       }
     </script>
   </body>
