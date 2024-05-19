@@ -291,32 +291,47 @@
       const order = document.querySelector(".order");
       order.insertAdjacentHTML("beforeend", cardData);
 
+      const m1 = document.querySelector(".m1");
+      const m2 = document.querySelector(".m2");
+      const m3 = document.querySelector(".m3");
+      const mn = document.querySelectorAll(".mn");
+
+      mn.forEach((m) => {
+        m.addEventListener("click", function () {
+          mn.forEach((m1) => {
+            m1.classList.remove("a");
+          });
+          m.classList.add("a");
+        });
+      });
+      console.log(m1);
       // $(document).ready(function () {
       // });
       console.log(pt);
       $(document).ready(function () {
         $(".bp").hide();
         $(".m1").click(function () {
-          $(".m1").toggleClass("a");
-          $(".m2").removeClass("a");
-          $(".m3").removeClass("a");
+          // $(".m1").toggleClass("a");
+          // $(".m2").removeClass("a");
+          // $(".m3").removeClass("a");
 
           $(".bp").show().text(pt.price.month);
         });
         $(".m2").click(function () {
-          $(".m2").toggleClass("a");
-          $(".m1").removeClass("a");
-          $(".m3").removeClass("a");
+          // $(".m2").toggleClass("a");
+          // $(".m1").removeClass("a");
+          // $(".m3").removeClass("a");
 
           $(".bp").show().text(pt.price.half);
         });
         $(".m3").click(function () {
-          $(".m3").toggleClass("a");
-          $(".m1").removeClass("a");
-          $(".m2").removeClass("a");
+          // $(".m3").toggleClass("a");
+          // $(".m1").removeClass("a");
+          // $(".m2").removeClass("a");
 
           $(".bp").show().text(pt.price.year);
         });
+
         //
         // inc and dec
         let i = 1;
