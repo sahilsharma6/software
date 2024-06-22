@@ -147,6 +147,18 @@ const data = [
 
     description: ["devices", "Ai", "style", "snippets", "instant access"],
   },
+  {
+    id: 13,
+    name: "Aithor",
+    price: {
+      month: 1100,
+      half: 4000,
+      year: 6500,
+    },
+    img: "assets/Aithor.png",
+    priceRange: "Rs. 1100 - Rs. 6500",
+    description: ["devices", "Ai", "style", "snippets", "instant access"],
+  },
 ];
 
 export default data;
