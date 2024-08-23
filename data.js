@@ -58,7 +58,7 @@ const data = [
       half: 3500,
       year: 6000,
     },
-    priceRange: "Rs.500 - Rs. 4,500",
+    priceRange: "Rs.900 - Rs. 6,500",
     description: ["devices", "Ai", "style", "snippets", "instant access"],
   },
   {
@@ -94,7 +94,7 @@ const data = [
       half: 3300,
       year: 5000,
     },
-    priceRange: "Rs. 500 - Rs. 3,500",
+    priceRange: "Rs. 800 - Rs.5,000",
     description: ["devices", "Ai", "style", "snippets", "instant access"],
   },
   {
@@ -143,7 +143,7 @@ const data = [
       year: 4000,
     },
     img: "assets/tti.png",
-    priceRange: "Rs. 500 - Rs. 4000",
+    priceRange: "Rs. 600 - Rs. 4000",
 
     description: ["devices", "Ai", "style", "snippets", "instant access"],
   },
